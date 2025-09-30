@@ -1,0 +1,38 @@
+name: Firmware count badge
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+jobs:
+  count-firmwares:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+            python-version: "3.x"
+
+      - name: Run counter
+        run: |
+          python scripts/count_firmwares.py
+
+      - name: Commit changes if needed
+        run: |
+          if git diff --quiet .; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/firmware-count-badge.json README.md
+          git commit -m "chore: update firmware count badge [skip ci]"
+          git push
