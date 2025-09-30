@@ -1,4 +1,5 @@
 # Kittyrips
+![Firmwares](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/1vers1on/kittyrips/main/.github/firmware-count-badge.json)
 A collection of cat-approved firmware rips.
 
 This repository contains firmware dumps from various chips. Not everything here is strictly firmware, some may be configuration chips, but I haven’t sorted them out yet.
